@@ -11,6 +11,10 @@ class TestParse(unittest.TestCase):
         self.assertTrue(val_name == 'curator name')
         self.assertTrue(val_role == 'curator role')
 
+        val_id = parse_value("remove group id='3'", 'id')
+        
+        self.assertTrue(val_id == '3')
+
     def test_parse_fields(self):
         fs, vls = parse_fields("add curator name='curator name' role='curator role'", Curator.fields)
         

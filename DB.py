@@ -3,7 +3,7 @@ from sqlite3 import OperationalError
 
 def get_connection():
     """Создает соединение с базой данных."""
-    return sqlite3.connect('library.db')
+    return sqlite3.connect('students.db')
 
 def initialize_database(filename):
     
@@ -19,6 +19,6 @@ def initialize_database(filename):
     for command in sqlCommands:
         try:
             cursor.execute(command)
-        except OperationalError:
-            print("Command skipped: ", command)
+        except OperationalError as err:
+            print(f"Command skipped: {command}, {err}")
 

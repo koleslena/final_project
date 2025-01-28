@@ -1,4 +1,4 @@
-from database import get_connection
+from DB import get_connection
 
 def add(table_name, args, values):
     conn = get_connection()
@@ -19,18 +19,18 @@ def get_list(table_name):
     conn.close()
     return lst
 
-def update(table_name, id, args, values):
+def update(table_name, id_field, id, args, values):
     conn = get_connection()
     cursor = conn.cursor()
     chs = [f'{args[i]}={values[i]}' for i in range(0, len(values))]
-    query = f"UPDATE {table_name} SET {', '.join(chs)} WHERE id = {id}"
+    query = f"UPDATE {table_name} SET {', '.join(chs)} WHERE {id_field} = {id}"
     cursor.execute(query)
     conn.commit()
     conn.close()
 
-def delete(table_name, id):
+def delete(table_name, id_field, id):
     conn = get_connection()
     cursor = conn.cursor()
-    cursor.execute(f"DELETE FROM {table_name} WHERE id = ?", (id,))
+    cursor.execute(f"DELETE FROM {table_name} WHERE {id_field} = ?", (id,))
     conn.commit()
     conn.close()
